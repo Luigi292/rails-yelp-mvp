@@ -1,8 +1,13 @@
-class Restaurant < ApplicationRecord
-  has_many :reviews, dependent: :destroy
+# app/models/restaurant.rb
 
+class Restaurant < ApplicationRecord
+  # Validations
   validates :name, presence: true
   validates :address, presence: true
   validates :phone_number, presence: true
-  validates :category, presence: true, inclusion: { in: ["chinese", "italian", "japanese", "french", "belgian"] }
+  validates :category, presence: true, inclusion: { in: %w(Indian Italian Japanese Mexican American),
+                                                    message: "%{value} is not a valid category" }
+
+  # Associations
+  has_many :reviews, dependent: :destroy
 end
